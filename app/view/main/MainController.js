@@ -2,14 +2,14 @@ Ext.define('TutorialApp.view.main.MainController', {
     extend: 'Ext.app.ViewController',
 
     alias: 'controller.main',
+    store: {
+        type: 'goods'
+    },
 
     onItemSelected: function (sender, record) {
         var window = Ext.create('Ext.window.Window', {
+        // var window = Ext.create('TutorialApp.view.main.EditSelected', {
             title: 'Приложение',
-            reference: 'editselected',
-            xtype: 'editselected',
-            // width: 600,
-            // height: 600,
             bodyPadding: 10,
             closable: false,
             title: 'Карточка товара: ' + record.data.name,
@@ -56,8 +56,12 @@ Ext.define('TutorialApp.view.main.MainController', {
                             var msg = 'Вы изменили параметры товара. Сохранить?'
                             var box = Ext.Msg.confirm(title, msg, function(buttonId, value) {
                                 if (buttonId === 'no'){
-                                    console.log('no')
+                                    window.close()
                                 } else {
+                                    grid = Ext.ComponentQuery.query('app-main')[0].down('mainlist')
+                                    store = grid.getStore(),
+                                    console.log(record)
+                                    store.insert(record.data.id, {id: record.data.id, name: record.data.name, description: record.data.description, cost, quantity})
                                     window.close()
                                     return false;
                                 }

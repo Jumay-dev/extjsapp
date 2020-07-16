@@ -12,7 +12,6 @@ Ext.define('TutorialApp.view.main.Main', {
         'TutorialApp.view.main.MainController',
         'TutorialApp.view.main.MainModel',
         'TutorialApp.view.main.List',
-        // 'TutorialApp.view.main.EditSelected'
     ],
 
     controller: 'main',
