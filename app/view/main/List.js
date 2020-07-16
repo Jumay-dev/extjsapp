@@ -22,7 +22,7 @@ Ext.define('TutorialApp.view.main.List', {
             type: 'string', 
         },
         { text: 'Описание', dataIndex: 'description', flex: 1, type: 'string' },
-        { text: 'Цена', dataIndex: 'cost', flex: 1, type: 'boolean' },
+        { text: 'Цена', dataIndex: 'cost', flex: 1, xtype: 'numbercolumn', format:'0.00' },
         { 
             text: 'Кол-во', 
             dataIndex: 'quantity', 
@@ -39,12 +39,8 @@ Ext.define('TutorialApp.view.main.List', {
         }
         },
     ],
-
-    // bbar: Ext.create('Ext.PagingToolbar', {
-    //     store: store
-    // }), 
     
     listeners: {
-        select: 'onItemSelected'
+        itemclick: 'onItemSelected'
     }
 });

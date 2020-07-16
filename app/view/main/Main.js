@@ -8,6 +8,7 @@ Ext.define('TutorialApp.view.main.Main', {
         'Ext.window.MessageBox',
         'Ext.form.Panel',,
         'Ext.form.filterField',
+        'Ext.form.IDFilterField',
 
         'TutorialApp.view.main.MainController',
         'TutorialApp.view.main.MainModel',

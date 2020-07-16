@@ -30,22 +30,34 @@ Ext.define('TutorialApp.view.main.MainController', {
                     xtype: 'numberfield',
                     name: 'quantity',
                     value: record.data.quantity,
-                    fieldLabel: 'Количество'
+                    fieldLabel: 'Количество',
+                    validator: function() {
+                        if(Number(this.getValue() < 0)) {
+                            Ext.WindowManager.bringToFront(Ext.Msg.alert('Ошибка!', 'Количество должно быть неотрицательным'))
+                        }
+                    }
                 },
                 {
-                    xtype: 'numberfield',
+                    xtype: 'textfield',
                     name: 'cost',
                     value: record.data.cost,
-                    fieldLabel: 'Цена'
+                    fieldLabel: 'Цена',
+                    validator: function() {
+                        function isNumber(num) {
+                            return typeof num === 'number' && !isNaN(num);
+                        }
+                        if (!(isNumber(Number(this.getValue()))) || Number(this.getValue() <= 0)) {
+                            Ext.Msg.alert('Ошибка!', 'Цена должна быть положительным числом')
+                        }
+                    }
                 },
                 {
                     xtype: 'button',
                     text: 'Сохранить',
-                    // disabled: isChanged,
                     handler: function() {
                         //для масштабируемости достаточно просто дополнить массивы
                         const quantity = Ext.ComponentQuery.query('numberfield[name=quantity]')[0].getValue();
-                        const cost = Ext.ComponentQuery.query('numberfield[name=cost]')[0].getValue();
+                        const cost = Ext.ComponentQuery.query('textfield[name=cost]')[0].getValue();
                         let currentValues = [quantity, cost]
                         let storeValues = [record.data.quantity, record.data.cost]
                         if (currentValues.every((value, index) => value == storeValues[index])) {
@@ -109,14 +121,18 @@ Ext.define('TutorialApp.view.main.MainController', {
                 title:'Товары',
                 items: [
                     {
-                        xtype: 'filterfield',
+                        xtype: 'idfilterfield',
+                        minValue: 1,
                         name: 'id',
-                        fieldLabel: 'ID'
+                        fieldLabel: 'ID',
+                        emptyText: 'Введите ID...',
+                        
                     },
                     {
                         xtype: 'filterfield',
                         fieldLabel: 'Описание',
-                        name: 'name'
+                        name: 'name',
+                        emptyText: 'Введите имя...'
                     },
                     {
                         xtype: 'mainlist',
