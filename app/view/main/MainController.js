@@ -110,13 +110,11 @@ Ext.define('TutorialApp.view.main.MainController', {
                 items: [
                     {
                         xtype: 'filterfield',
-                        label: 'ID',
                         name: 'id',
                         fieldLabel: 'ID'
                     },
                     {
                         xtype: 'filterfield',
-                        label: 'Описание',
                         fieldLabel: 'Описание',
                         name: 'name'
                     },

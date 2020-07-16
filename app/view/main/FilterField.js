@@ -12,23 +12,25 @@ Ext.define('Ext.form.filterField', {
 
     // Handle enter key presses, execute the search if the field has a value
     checkEnterKey: function(field, e) {
-        var value = this.getValue();
-        if (e.getKey() === e.ENTER && !Ext.isEmpty(value)) {
-            var searchString = this.getValue(),
-            grid = this.up('app-main').down('mainlist'),
+        console.log('checkEnterKey')
+        console.log(field)
+        let grid = this.up().down('mainlist'),
             store = grid.getStore(),
             filters = [];
 
-            store.clearFilter()
-            if (searchString) {
-                this.titleFilter = filters.push({
-                    id: 'titleFilter',
-                    property: 'name',
-                    value: searchString,
-                    anyMatch: true,
-                    caseSensitive: false
-                });
-            } 
+        console.log(grid)
+
+        store.clearFilter()
+
+        var value = this.getValue();
+        if (e.getKey() === e.ENTER && !Ext.isEmpty(value)) {
+            this.titleFilter = filters.push({
+                id: 'titleFilter',
+                property: 'name',
+                value,
+                anyMatch: true,
+                caseSensitive: false
+            });
             store.setFilters(filters);            
         }
     }
